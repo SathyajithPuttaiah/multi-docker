@@ -7,7 +7,7 @@ before_install:
 
 script:
   #- docker run sputtaiah/react-test npm test -- --coverage #-- --coverage is to exit after the test is com[pleted] with status 0 0r 1.
-  - docker run -e CI=true USERNAME/react-test npm test
+  - docker run -e CI=true sputtaiah/react-test npm test
 
 after_success:
   - docker build -t sputtaiah/multi-client ./client
