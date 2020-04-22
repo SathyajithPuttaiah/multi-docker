@@ -17,8 +17,6 @@ after_success:
   - docker build -t sathyajith91/multi-server ./server
   - docker build -t sathyajith91/multi-worker ./worker
 
-
-
   #log in to our docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   #take those images and push them to docker hub
@@ -26,3 +24,17 @@ after_success:
   - docker push sathyajith91/multi-nginx
   - docker push sathyajith91/multi-server
   - docker push sathyajith91/multi-worker
+
+deploy:
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: multi-docker #name given in EBS
+  env: multi-docker-env #env name in EBS
+  bucket_name: elasticbeanstalk-us-east-1-430009435452 #this is where travis zips up whole project and stashes in s3 bucket.
+  bucket_path: docker-multi
+  on:
+    branch: master #only if we are pushing the code to master not feature and all.
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
+  #edge: true
+  #provider: elasticbeanstalk
