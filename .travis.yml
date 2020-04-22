@@ -27,7 +27,7 @@ after_success:
 
 deploy:
   provider: elasticbeanstalk
-  region: us-west-1
+  region: us-east-1
   app: multi-docker #name given in EBS
   env: multi-docker-env #env name in EBS
   bucket_name: elasticbeanstalk-us-east-1-430009435452 #this is where travis zips up whole project and stashes in s3 bucket.
